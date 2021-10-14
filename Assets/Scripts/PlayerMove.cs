@@ -5,8 +5,11 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float speed = 3.5f;
+    public int distanceOfRaycast = 10;
+
 
     private float gravity = 10f;
+    private RaycastHit _hit;
 
     private CharacterController controller;
 
@@ -20,6 +23,15 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        if(Physics.Raycast(ray, out _hit, distanceOfRaycast))
+        {
+            if(Input.GetButtonDown("Fire1") && _hit.transform.CompareTag("rotate"))
+            {
+                _hit.transform.gameObject.GetComponent<Rotate>().ChangeSpin();
+            }
+        }
         PlayerMovement();
     }
 
