@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float speed = 3.5f;
-    public int distanceOfRaycast = 10;
+    public float distanceOfRaycast = 0.000000000005f;
 
 
     private float gravity = 10f;
