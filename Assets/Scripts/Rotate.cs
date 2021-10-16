@@ -8,7 +8,7 @@ public class Rotate : MonoBehaviour
 
     private bool isSpinning = false;
 
-    // Update is called once per frame
+    // Update is called once per frame si estoy aqui comentado algo
     void Update()
     {
         if (isSpinning)
