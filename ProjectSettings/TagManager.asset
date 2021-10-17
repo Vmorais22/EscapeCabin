@@ -8,6 +8,8 @@ TagManager:
   - Cogido
   - Arrastrado
   - Seleccionado
+  - ArmAbIzDer
+  - ArmAbDerIz
   layers:
   - Default
   - TransparentFX
