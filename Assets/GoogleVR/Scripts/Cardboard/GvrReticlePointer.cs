@@ -41,7 +41,7 @@ public class GvrReticlePointer : GvrBasePointer
     public const float RETICLE_DISTANCE_MIN = 0.45f;
 
     /// <summary>Maximum distance of the reticle (in meters).</summary>
-    public float maxReticleDistance = 20.0f;
+    public float maxReticleDistance = 1.0f;
 
     /// <summary>Number of segments making the reticle circle.</summary>
     public int reticleSegments = 20;

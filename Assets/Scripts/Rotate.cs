@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class Rotate : MonoBehaviour
 {
-    public float spinForce = 45f;
-
-    private bool isSpinning = false;
+    public bool firstGrab = false;
+    public bool set = false;
 
     // Update is called once per frame si estoy aqui comentado algo
     void Update()
     {
-        if (isSpinning)
+        /*if (firstGrab && !set)
         {
-            transform.Rotate(0, spinForce * Time.deltaTime, 0);
-        }
-        else
-        {
-            transform.Rotate(0, 0, 0);
-        }
+            transform.SetParent(null);
+            transform.localPosition = GameObject.FindWithTag("Player").transform.localPosition;
+            Collider coll = GetComponent<Collider>();
+            coll.isTrigger = false;
+            Rigidbody r = GetComponent<Rigidbody>();
+            r.useGravity = true;
+            set = true;
+
+        }*/
+
     }
 
     public void ChangeSpin()
     {
-        isSpinning = !isSpinning;
+
     }
 }
