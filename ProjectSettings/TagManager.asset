@@ -10,6 +10,16 @@ TagManager:
   - Seleccionado
   - ArmAbIzDer
   - ArmAbDerIz
+  - ArmCiDerIz
+  - ArmCiIzDer
+  - OpenKitchen
+  - CloseKitchen
+  - OpenBedroom
+  - CloseBedroom
+  - OpenBedroomRight
+  - CloseBedroomRight
+  - OpenBedroomLeft
+  - CloseBedroomLeft
   layers:
   - Default
   - TransparentFX

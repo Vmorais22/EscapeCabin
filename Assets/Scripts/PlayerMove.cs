@@ -33,10 +33,10 @@ public class PlayerMove : MonoBehaviour
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         var dist = 1000f;
 
-        if(Physics.Raycast(ray, out _hit, distanceOfRaycast))
+        if (Physics.Raycast(ray, out _hit, distanceOfRaycast))
         {
             dist = Vector3.Distance(_hit.transform.position, transform.position);
-            if (dist < 2f) //si el objeto esta al alcance
+            if (dist < 3f) //si el objeto esta al alcance
             {
                 if (_hit.transform.CompareTag("Cogido")) //si el objeto es cogible
                 {
@@ -76,7 +76,7 @@ public class PlayerMove : MonoBehaviour
                         _hit.transform.gameObject.tag = "ArmCiDerIz";
                     }
                 }
-                if (_hit.transform.CompareTag("ArmAbDerIz"))
+                else if (_hit.transform.CompareTag("ArmAbDerIz"))
                 {
                     if (Input.GetButtonDown("Fire1")) //si apreto y...
                     {
@@ -85,20 +85,104 @@ public class PlayerMove : MonoBehaviour
                         _hit.transform.gameObject.tag = "ArmCiIzDer";
                     }
                 }
-
-
+                else if (_hit.transform.CompareTag("ArmCiDerIz"))
+                {
+                    if (Input.GetButtonDown("Fire1")) //si apreto y...
+                    {
+                        _hit.transform.GetComponent<Animation>().Play("CloseRightLeft");
+                        _hit.collider.isTrigger = true;
+                        _hit.transform.gameObject.tag = "ArmAbIzDer";
+                    }
+                }
+                else if (_hit.transform.CompareTag("ArmCiIzDer"))
+                {
+                    if (Input.GetButtonDown("Fire1")) //si apreto y...
+                    {
+                        _hit.transform.GetComponent<Animation>().Play("CloseLeftRight");
+                        _hit.collider.isTrigger = true;
+                        _hit.transform.gameObject.tag = "ArmAbDerIz";
+                    }
+                }
+                else if (_hit.transform.CompareTag("OpenKitchen"))
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
+                        _hit.transform.GetComponent<Animation>().Play("OpenKitchenDrawer" + drawNum.ToString());
+                        _hit.transform.gameObject.tag = "CloseKitchen";
+                    }
+                }
+                else if (_hit.transform.CompareTag("CloseKitchen"))
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
+                        _hit.transform.GetComponent<Animation>().Play("CloseKitchenDrawer" + drawNum.ToString());
+                        _hit.transform.gameObject.tag = "OpenKitchen";
+                    }
+                }
+                else if (_hit.transform.CompareTag("OpenBedroom"))
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
+                        _hit.transform.GetComponent<Animation>().Play("OpenBedroomDrawer" + drawNum.ToString());
+                        _hit.transform.gameObject.tag = "CloseBedroom";
+                    }
+                }
+                else if (_hit.transform.CompareTag("CloseBedroom"))
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
+                        _hit.transform.GetComponent<Animation>().Play("CloseBedroomDrawer" + drawNum.ToString());
+                        _hit.transform.gameObject.tag = "OpenBedroom";
+                    }
+                }
+                else if (_hit.transform.CompareTag("OpenBedroomLeft"))
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerLeft");
+                        _hit.transform.gameObject.tag = "CloseBedroomLeft";
+                    }
+                }
+                else if (_hit.transform.CompareTag("OpenBedroomRight"))
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerRight");
+                        _hit.transform.gameObject.tag = "CloseBedroomRight";
+                    }
+                }
+                else if (_hit.transform.CompareTag("CloseBedroomLeft"))
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerLeft");
+                        _hit.transform.gameObject.tag = "OpenBedroomLeft";
+                    }
+                }
+                else if (_hit.transform.CompareTag("CloseBedroomRight"))
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerRight");
+                        _hit.transform.gameObject.tag = "OpenBedroomRight";
+                    }
+                }
             }
-            
+
             else //si no estoy a distancia
             {
-                
+
                 if (!_hit.transform.CompareTag("Cogido") && dist < 2f) Debug.Log("no es Cogible");
                 if (dist > 2) Debug.Log("muy lejos");
             }
-            
-           
+
+
         }
-        
+
         PlayerMovement();
     }
 
