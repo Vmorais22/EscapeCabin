@@ -191,10 +191,8 @@
     <Compile Include="Assets\GoogleVR\Scripts\Utilities\Internal\SuppressMemoryAllocationErrorAttribute.cs" />
     <Compile Include="Assets\GoogleVR\Scripts\Video\GvrVideoPlayerTexture.cs" />
     <Compile Include="Assets\Scripts\ChangeColor.cs" />
-    <Compile Include="Assets\Scripts\FallIfTouched.cs" />
     <Compile Include="Assets\Scripts\PlayerGrab.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
-    <Compile Include="Assets\Scripts\Rotate.cs" />
     <Compile Include="Assets\Scripts\SetCorrectCameraHeight.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <None Include="Assets\GoogleVR\Shaders\GvrUIOverlayFont.shader" />

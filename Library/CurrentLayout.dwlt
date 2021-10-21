@@ -95,7 +95,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 498}
   m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
-  controlID: 113
+  controlID: 41
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 498}
   m_MaxSize: {x: 10004, y: 14048}
   vertical: 1
-  controlID: 40
+  controlID: 60
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -320,20 +320,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/SkythianCat/Hand_Painted_Nature_Kit_LITE/Textures/Landscape
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/SkythianCat/Hand_Painted_Nature_Kit_LITE/Textures/Landscape
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\UPC\MEI\PRIMERO\SGI\EscapeCabin\test\EscapeCabin
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 87}
-    m_SelectedIDs: c43b0000
-    m_LastClickedID: 15300
-    m_ExpandedIDs: 00000000682e0000a22e0000ac2e00001c320000f43200007c3300005e3a0000523b0000aa3c0000b83c0000703d0000fc4000008c4e000000ca9a3b
+    scrollPos: {x: 0, y: 60}
+    m_SelectedIDs: 943f0000
+    m_LastClickedID: 16276
+    m_ExpandedIDs: 00000000862e0000c02e0000ca2e0000ec2f00003a3200001233000090340000703b0000c83c0000d63c00008c3d000018410000904e000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -361,7 +361,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000682e0000a22e0000ac2e00001c320000f43200007c3300005e3a0000523b0000aa3c0000b83c0000703d0000fc4000008c4e0000
+    m_ExpandedIDs: 00000000862e0000c02e0000ca2e00003a320000123300009a3300007c3a0000703b0000c83c0000d63c00008c3d000018410000904e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -388,7 +388,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -415,7 +415,7 @@ MonoBehaviour:
     m_NewAssetIndexInList: -1
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
-  m_DirectoriesAreaWidth: 115
+  m_DirectoriesAreaWidth: 262
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -528,9 +528,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.3366992, y: 1.4929334, z: 2.3510969}
+    m_Target: {x: 1.0382857, y: -1.4265635, z: 1.1149994}
     speed: 2
-    m_Value: {x: 2.3366992, y: 1.4929334, z: 2.3510969}
+    m_Value: {x: 1.0382857, y: -1.4265635, z: 1.1149994}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -558,9 +558,9 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.045445167, y: -0.65572095, z: 0.039595313, w: -0.7525936}
+    m_Target: {x: -0.23488088, y: -0.7014504, z: 0.2666833, w: -0.61780125}
     speed: 2
-    m_Value: {x: -0.045445167, y: -0.65572095, z: 0.039595313, w: -0.7525936}
+    m_Value: {x: -0.23488088, y: -0.7014504, z: 0.2666833, w: -0.61780125}
   m_Size:
     m_Target: 5.3665266
     speed: 2
@@ -607,7 +607,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: bae9fefffae9feff20eafefffeebfefff6f6ffffd4f7ffff02f9ffff18faffffccfaffffdefbffff2842000080430000c6430000
+      m_ExpandedIDs: 8efaffffa0fbffff424200009c430000e2430000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
