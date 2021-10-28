@@ -38,7 +38,7 @@ public class PlayerMove : MonoBehaviour
 
         if (selected)
         {
-            if (Input.GetButtonDown("TriggerAbajo"))
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 rotating = false;
                 Debug.Log("lo suelto");
@@ -47,7 +47,7 @@ public class PlayerMove : MonoBehaviour
                 lastHit.rigidbody.useGravity = true;
                 selected = false;
             }
-            else if (Input.GetButton("TriggerArriba"))
+            else if (Input.GetButton("TriggerArriba") || Input.GetButtonDown("Fire2"))
             {
                 rotating = true;
                 float horizontal = Input.GetAxis("Horizontal");
@@ -70,7 +70,7 @@ public class PlayerMove : MonoBehaviour
                         /*initMaterial = _hit.transform.GetComponent<Renderer>().material; //guarda material inicial
                         _hit.transform.GetComponent<Renderer>().material = cogido; //pintalo amarillo*/
                         Debug.Log("cogible");
-                        if (Input.GetButtonDown("TriggerAbajo") && !selected) //si apreto y no está seleccionado
+                        if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) && !selected) //si apreto y no está seleccionado
                         {
                             Debug.Log("lo cojo");
                             padrecito = _hit.transform.parent.gameObject.transform;
@@ -119,7 +119,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (_hit.transform.CompareTag("ArmAbIzDer"))
         {
-            if (Input.GetButtonDown("TriggerAbajo")) //si apreto y...
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenLeftRight");
                 _hit.collider.isTrigger = true;
@@ -128,7 +128,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmAbDerIz"))
         {
-            if (Input.GetButtonDown("TriggerAbajo")) //si apreto y...
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenRightLeft");
                 _hit.collider.isTrigger = true;
@@ -137,7 +137,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmCiDerIz"))
         {
-            if (Input.GetButtonDown("TriggerAbajo")) //si apreto y...
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseRightLeft");
                 _hit.collider.isTrigger = true;
@@ -146,7 +146,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmCiIzDer"))
         {
-            if (Input.GetButtonDown("TriggerAbajo")) //si apreto y...
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseLeftRight");
                 _hit.collider.isTrigger = true;
@@ -155,7 +155,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenKitchen"))
         {
-            if (Input.GetButtonDown("TriggerAbajo"))
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
                 _hit.transform.GetComponent<Animation>().Play("OpenKitchenDrawer" + drawNum.ToString());
@@ -164,7 +164,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseKitchen"))
         {
-            if (Input.GetButtonDown("TriggerAbajo"))
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
                 _hit.transform.GetComponent<Animation>().Play("CloseKitchenDrawer" + drawNum.ToString());
@@ -173,7 +173,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroom"))
         {
-            if (Input.GetButtonDown("TriggerAbajo"))
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
                 _hit.transform.GetComponent<Animation>().Play("OpenBedroomDrawer" + drawNum.ToString());
@@ -182,7 +182,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroom"))
         {
-            if (Input.GetButtonDown("TriggerAbajo"))
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
                 _hit.transform.GetComponent<Animation>().Play("CloseBedroomDrawer" + drawNum.ToString());
@@ -191,7 +191,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroomLeft"))
         {
-            if (Input.GetButtonDown("TriggerAbajo"))
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerLeft");
                 _hit.transform.gameObject.tag = "CloseBedroomLeft";
@@ -199,7 +199,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroomRight"))
         {
-            if (Input.GetButtonDown("TriggerAbajo"))
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerRight");
                 _hit.transform.gameObject.tag = "CloseBedroomRight";
@@ -215,7 +215,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroomRight"))
         {
-            if (Input.GetButtonDown("TriggerAbajo"))
+            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerRight");
                 _hit.transform.gameObject.tag = "OpenBedroomRight";

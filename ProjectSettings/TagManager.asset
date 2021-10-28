@@ -22,6 +22,10 @@ TagManager:
   - CloseBedroomLeft
   - ButtonPlay
   - ButtonAbout
+  - ButtonCredits
+  - ButtonExit
+  - ButtonBack
+  - ButtonYes
   layers:
   - Default
   - TransparentFX
