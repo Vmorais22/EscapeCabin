@@ -20,6 +20,8 @@ TagManager:
   - CloseBedroomRight
   - OpenBedroomLeft
   - CloseBedroomLeft
+  - ButtonPlay
+  - ButtonAbout
   layers:
   - Default
   - TransparentFX

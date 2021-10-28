@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
     private RaycastHit _hit;
     private bool selected = false;
     private RaycastHit lastHit;
+    private bool rotating = false;
 
     //DISTINGUIR INTERACCIÓ
     public Material cogido;
@@ -35,13 +36,26 @@ public class PlayerMove : MonoBehaviour
 
 
 
-        if (Input.GetButtonDown("Fire1") && selected)
+        if (selected)
         {
-            Debug.Log("lo suelto");
-            lastHit.transform.SetParent(padrecito);
-            lastHit.collider.isTrigger = false;
-            lastHit.rigidbody.useGravity = true;
-            selected = false;
+            if (Input.GetButtonDown("TriggerAbajo"))
+            {
+                rotating = false;
+                Debug.Log("lo suelto");
+                lastHit.transform.SetParent(padrecito);
+                lastHit.collider.isTrigger = false;
+                lastHit.rigidbody.useGravity = true;
+                selected = false;
+            }
+            else if (Input.GetButton("TriggerArriba"))
+            {
+                rotating = true;
+                float horizontal = Input.GetAxis("Horizontal");
+                float vertical = Input.GetAxis("Vertical");
+                lastHit.transform.Rotate(0, horizontal * 3, vertical * 3);
+            }
+            else rotating = false;
+
         }
 
         else
@@ -56,7 +70,7 @@ public class PlayerMove : MonoBehaviour
                         /*initMaterial = _hit.transform.GetComponent<Renderer>().material; //guarda material inicial
                         _hit.transform.GetComponent<Renderer>().material = cogido; //pintalo amarillo*/
                         Debug.Log("cogible");
-                        if (Input.GetButtonDown("Fire1") && !selected) //si apreto y no está seleccionado
+                        if (Input.GetButtonDown("TriggerAbajo") && !selected) //si apreto y no está seleccionado
                         {
                             Debug.Log("lo cojo");
                             padrecito = _hit.transform.parent.gameObject.transform;
@@ -71,6 +85,7 @@ public class PlayerMove : MonoBehaviour
                     else //tratamiento animaciones puertas y cajones
                     {
                         AnimationTreatment(_hit);
+                        //KeyCode <- mirar codes. En unity puede que joystickbutton 6 y 7 sean 4 y 5
                     }
                 }
                 else //si no estoy a distancia
@@ -83,9 +98,11 @@ public class PlayerMove : MonoBehaviour
         }
 
         PlayerMovement();
-        }
+    }
 
-        void PlayerMovement()
+    void PlayerMovement()
+    {
+        if (!rotating)
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
@@ -96,11 +113,13 @@ public class PlayerMove : MonoBehaviour
             controller.Move(velocity * Time.deltaTime);
         }
 
-    void AnimationTreatment( RaycastHit _hit)
+    }
+
+    void AnimationTreatment(RaycastHit _hit)
     {
         if (_hit.transform.CompareTag("ArmAbIzDer"))
         {
-            if (Input.GetButtonDown("Fire1")) //si apreto y...
+            if (Input.GetButtonDown("TriggerAbajo")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenLeftRight");
                 _hit.collider.isTrigger = true;
@@ -109,7 +128,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmAbDerIz"))
         {
-            if (Input.GetButtonDown("Fire1")) //si apreto y...
+            if (Input.GetButtonDown("TriggerAbajo")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenRightLeft");
                 _hit.collider.isTrigger = true;
@@ -118,7 +137,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmCiDerIz"))
         {
-            if (Input.GetButtonDown("Fire1")) //si apreto y...
+            if (Input.GetButtonDown("TriggerAbajo")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseRightLeft");
                 _hit.collider.isTrigger = true;
@@ -127,7 +146,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmCiIzDer"))
         {
-            if (Input.GetButtonDown("Fire1")) //si apreto y...
+            if (Input.GetButtonDown("TriggerAbajo")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseLeftRight");
                 _hit.collider.isTrigger = true;
@@ -136,7 +155,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenKitchen"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("TriggerAbajo"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
                 _hit.transform.GetComponent<Animation>().Play("OpenKitchenDrawer" + drawNum.ToString());
@@ -145,7 +164,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseKitchen"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("TriggerAbajo"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
                 _hit.transform.GetComponent<Animation>().Play("CloseKitchenDrawer" + drawNum.ToString());
@@ -154,7 +173,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroom"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("TriggerAbajo"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
                 _hit.transform.GetComponent<Animation>().Play("OpenBedroomDrawer" + drawNum.ToString());
@@ -163,7 +182,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroom"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("TriggerAbajo"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
                 _hit.transform.GetComponent<Animation>().Play("CloseBedroomDrawer" + drawNum.ToString());
@@ -172,7 +191,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroomLeft"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("TriggerAbajo"))
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerLeft");
                 _hit.transform.gameObject.tag = "CloseBedroomLeft";
@@ -180,7 +199,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroomRight"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("TriggerAbajo"))
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerRight");
                 _hit.transform.gameObject.tag = "CloseBedroomRight";
@@ -188,7 +207,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroomLeft"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("TriggerAbajo"))
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerLeft");
                 _hit.transform.gameObject.tag = "OpenBedroomLeft";
@@ -196,7 +215,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroomRight"))
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("TriggerAbajo"))
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerRight");
                 _hit.transform.gameObject.tag = "OpenBedroomRight";
