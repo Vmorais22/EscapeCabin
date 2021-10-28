@@ -32,7 +32,8 @@ public class MenuLogical : MonoBehaviour
             Debug.Log("Entrando en Physics");
             if (_hit.transform.CompareTag("ButtonPlay")){
                 Debug.Log("BotonPlay");
-                if (Input.GetButtonDown("TriggerAbajo")){
+                if (Input.GetButtonDown("TriggerAbajo"))
+                {
                     StartGameClick();
                 }
             }
