@@ -23,6 +23,8 @@ public class PlayerMove : MonoBehaviour
     public Material agarrado;
     private Material initMaterial;
 
+    //OTRAS
+    private bool pintado = false;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -47,7 +49,7 @@ public class PlayerMove : MonoBehaviour
                 lastHit.rigidbody.useGravity = true;
                 selected = false;
             }
-            else if (Input.GetButton("TriggerArriba") || Input.GetButtonDown("Fire2"))
+            else if (Input.GetButton("TriggerArriba") || Input.GetButton("Fire2"))
             {
                 rotating = true;
                 float horizontal = Input.GetAxis("Horizontal");
@@ -67,12 +69,20 @@ public class PlayerMove : MonoBehaviour
                 {
                     if (_hit.transform.CompareTag("Cogido")) //si el objeto es cogible
                     {
-                        /*initMaterial = _hit.transform.GetComponent<Renderer>().material; //guarda material inicial
-                        _hit.transform.GetComponent<Renderer>().material = cogido; //pintalo amarillo*/
+                        if (!pintado)
+                        {
+                            initMaterial = _hit.transform.GetComponent<Renderer>().material; //guarda material inicial
+                            pintado = true;
+                        }
+                        _hit.transform.GetComponent<Renderer>().material = cogido; //pintalo amarillo
                         Debug.Log("cogible");
                         if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) && !selected) //si apreto y no está seleccionado
                         {
                             Debug.Log("lo cojo");
+                            if (pintado) {
+                                _hit.transform.GetComponent<Renderer>().material = initMaterial;
+                                pintado = false;
+                                    }
                             padrecito = _hit.transform.parent.gameObject.transform;
                             _hit.transform.SetParent(myHand.transform);
                             _hit.collider.isTrigger = true;
@@ -85,7 +95,6 @@ public class PlayerMove : MonoBehaviour
                     else //tratamiento animaciones puertas y cajones
                     {
                         AnimationTreatment(_hit);
-                        //KeyCode <- mirar codes. En unity puede que joystickbutton 6 y 7 sean 4 y 5
                     }
                 }
                 else //si no estoy a distancia
@@ -224,8 +233,3 @@ public class PlayerMove : MonoBehaviour
     }
 
 }
-
-
-//_hit.transform.gameObject.GetComponent<Rotate>().ChangeSpin();
-//_hit.transform.localPosition = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z+1f);
-//_hit.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
