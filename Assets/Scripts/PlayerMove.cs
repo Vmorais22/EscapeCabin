@@ -25,9 +25,15 @@ public class PlayerMove : MonoBehaviour
 
     //OTRAS
     private bool pintado = false;
+
+    //TECLADO
+    private TecladoMorse tecladomorse;
+    public GameObject puerta1, puerta2;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        tecladomorse = GameObject.FindGameObjectWithTag("TagTecladoMorse").GetComponent<TecladoMorse>();
     }
 
     // Update is called once per frame
@@ -82,6 +88,41 @@ public class PlayerMove : MonoBehaviour
                             _hit.transform.localPosition = new Vector3(0f, 0f, 0f);
                             lastHit = _hit;
                             selected = true;
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("LetraTeclado"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                        if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")))
+                        {
+                            if (_hit.transform.name == "A" && !tecladomorse.tecla1)
+                            {
+                                Debug.Log("Correcto");
+                                tecladomorse.Primera();
+                                Debug.Log(tecladomorse.tecla1);
+                            }
+                            else if (_hit.transform.name == "C" && tecladomorse.tecla1 && !tecladomorse.tecla2)
+                            {
+                                Debug.Log("Correcto");
+                                tecladomorse.Segunda();
+                            }
+                            else if (_hit.transform.name == "A" && tecladomorse.tecla1 && tecladomorse.tecla2 && !tecladomorse.tecla3)
+                            {
+                                Debug.Log("Correcto");
+                                tecladomorse.Tercera();
+                            }
+                            else if (_hit.transform.name == "P" && tecladomorse.tecla1 && tecladomorse.tecla2 && tecladomorse.tecla3 && !tecladomorse.tecla4)
+                            {
+                                Debug.Log("Correcto");
+                                tecladomorse.Quarta();
+                                Debug.Log("CodigoCorrecto");
+                                puerta1.GetComponent<Animation>().Play();
+                                puerta2.GetComponent<Animation>().Play();
+                            }
+                            else {
+                                Debug.Log("Reseteo");
+                                tecladomorse.Reseteo();
+                            }
                         }
                     }
                     else //tratamiento animaciones puertas y cajones

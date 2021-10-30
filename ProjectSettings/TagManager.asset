@@ -26,6 +26,8 @@ TagManager:
   - ButtonExit
   - ButtonBack
   - ButtonYes
+  - LetraTeclado
+  - TagTecladoMorse
   layers:
   - Default
   - TransparentFX
