@@ -65,24 +65,16 @@ public class PlayerMove : MonoBehaviour
             if (Physics.Raycast(ray, out _hit, distanceOfRaycast))
             {
                 dist = Vector3.Distance(_hit.transform.position, transform.position);
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.white;
                 if (dist < 3f) //si el objeto esta al alcance
                 {
                     if (_hit.transform.CompareTag("Cogido")) //si el objeto es cogible
                     {
-                        if (!pintado)
-                        {
-                            initMaterial = _hit.transform.GetComponent<Renderer>().material; //guarda material inicial
-                            pintado = true;
-                        }
-                        _hit.transform.GetComponent<Renderer>().material = cogido; //pintalo amarillo
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.green;
                         Debug.Log("cogible");
                         if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) && !selected) //si apreto y no está seleccionado
                         {
                             Debug.Log("lo cojo");
-                            if (pintado) {
-                                _hit.transform.GetComponent<Renderer>().material = initMaterial;
-                                pintado = false;
-                                    }
                             padrecito = _hit.transform.parent.gameObject.transform;
                             _hit.transform.SetParent(myHand.transform);
                             _hit.collider.isTrigger = true;
@@ -128,6 +120,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (_hit.transform.CompareTag("ArmAbIzDer"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenLeftRight");
@@ -137,6 +130,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmAbDerIz"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenRightLeft");
@@ -146,6 +140,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmCiDerIz"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseRightLeft");
@@ -155,6 +150,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmCiIzDer"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseLeftRight");
@@ -164,6 +160,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenKitchen"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
@@ -173,6 +170,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseKitchen"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
@@ -182,6 +180,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroom"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
@@ -191,6 +190,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroom"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
@@ -200,6 +200,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroomLeft"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerLeft");
@@ -208,6 +209,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroomRight"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerRight");
@@ -216,6 +218,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroomLeft"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo"))
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerLeft");
@@ -224,6 +227,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroomRight"))
         {
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerRight");
