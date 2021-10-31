@@ -24,7 +24,7 @@ public class PlayerMove : MonoBehaviour
     private Material initMaterial;
 
 
-
+    public LayerMask ignore;
     //TECLADO
     private TecladoMorse tecladomorse;
     public GameObject puerta1, puerta2;
@@ -67,7 +67,7 @@ public class PlayerMove : MonoBehaviour
 
         else
         {
-            if (Physics.Raycast(ray, out _hit, distanceOfRaycast))
+            if (Physics.Raycast(ray, out _hit, distanceOfRaycast, ~ignore))
             {
                 dist = Vector3.Distance(_hit.transform.position, transform.position);
                 GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.white;

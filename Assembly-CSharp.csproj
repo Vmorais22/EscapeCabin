@@ -192,6 +192,7 @@
     <Compile Include="Assets\GoogleVR\Scripts\Video\GvrVideoPlayerTexture.cs" />
     <Compile Include="Assets\Scripts\LlavePuerta.cs" />
     <Compile Include="Assets\Scripts\MenuLogical.cs" />
+    <Compile Include="Assets\Scripts\ObjectInDrawer.cs" />
     <Compile Include="Assets\Scripts\PlayerGrab.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\SetCorrectCameraHeight.cs" />
