@@ -5,6 +5,7 @@ using UnityEngine;
 public class LlavePuerta : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject reactiveObject;
     void Start()
     {
         //transform.Rotate(0, 90, 0);
@@ -16,6 +17,18 @@ public class LlavePuerta : MonoBehaviour
         if (Input.GetKeyDown("1"))
         {
             GetComponent<Animation>().Play();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.gameObject == reactiveObject)
+        {
+            GetComponent<Animation>().Play();
+            Destroy(collision.collider.gameObject);
+            GameObject.Find("XR Rig").GetComponent<PlayerMove>().selected = false;
+            
+
         }
     }
 }

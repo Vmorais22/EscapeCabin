@@ -14,7 +14,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject myHand;
     private Transform padrecito;
     private RaycastHit _hit;
-    private bool selected = false;
+    public bool selected = false;
     private RaycastHit lastHit;
     private bool rotating = false;
 
@@ -23,8 +23,7 @@ public class PlayerMove : MonoBehaviour
     public Material agarrado;
     private Material initMaterial;
 
-    //OTRAS
-    private bool pintado = false;
+
 
     //TECLADO
     private TecladoMorse tecladomorse;
@@ -83,7 +82,7 @@ public class PlayerMove : MonoBehaviour
                             Debug.Log("lo cojo");
                             padrecito = _hit.transform.parent.gameObject.transform;
                             _hit.transform.SetParent(myHand.transform);
-                            _hit.collider.isTrigger = true;
+                            if(_hit.transform.name != "key") _hit.collider.isTrigger = true;
                             _hit.rigidbody.useGravity = false;
                             _hit.transform.localPosition = new Vector3(0f, 0f, 0f);
                             lastHit = _hit;

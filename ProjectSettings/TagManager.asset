@@ -28,6 +28,7 @@ TagManager:
   - ButtonYes
   - LetraTeclado
   - TagTecladoMorse
+  - key
   layers:
   - Default
   - TransparentFX
@@ -38,8 +39,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
+  - door
+  - key
   - 
   - 
   - 
