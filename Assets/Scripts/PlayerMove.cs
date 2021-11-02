@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     public float speed = 3.5f;
     private float gravity = 10f;
     private CharacterController controller;
+    public static bool menuON = false;
 
     //SELECCIÓN
     public float distanceOfRaycast = 10f;
@@ -117,12 +118,23 @@ public class PlayerMove : MonoBehaviour
                                 Debug.Log("CodigoCorrecto");
                                 puerta1.GetComponent<Animation>().Play();
                                 puerta2.GetComponent<Animation>().Play();
+                                TimerLogic.stopTimer = true;
                             }
                             else {
                                 Debug.Log("Reseteo");
                                 tecladomorse.Reseteo();
                             }
                         }
+                    }
+                    else if (_hit.transform.CompareTag("Slider"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                    }
+                    else if (_hit.transform.CompareTag("ColorSofa"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                        if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))) _hit.transform.GetComponent<SofaBehaviour>().changeSofaColor();
+
                     }
                     else //tratamiento animaciones puertas y cajones
                     {
@@ -138,7 +150,7 @@ public class PlayerMove : MonoBehaviour
 
         }
 
-        PlayerMovement();
+        if(!menuON)PlayerMovement();
     }
 
     void PlayerMovement()

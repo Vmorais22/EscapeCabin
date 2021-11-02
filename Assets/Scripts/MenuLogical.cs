@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuLogical : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class MenuLogical : MonoBehaviour
     public GameObject instrucciones;
     public GameObject cargando;
     public float sightlength = 10f;
+    public Text textoDificultat;
     private RaycastHit _hit;
+    public static int dif = 1;
 
 
     // Use this for initialization
@@ -46,7 +49,7 @@ public class MenuLogical : MonoBehaviour
             {
                 GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
                 Debug.Log("BotonAbout");
-                if (Input.GetButtonDown("TriggerAbajo"))
+                if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
                 {
                     AboutClicked();
                 }
@@ -55,7 +58,7 @@ public class MenuLogical : MonoBehaviour
             {
                 GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
                 Debug.Log("BotonCredits");
-                if (Input.GetButtonDown("TriggerAbajo"))
+                if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
                 {
                     CreditClicked();
                 }
@@ -64,7 +67,7 @@ public class MenuLogical : MonoBehaviour
             {
                 GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
                 Debug.Log("BotonExit");
-                if (Input.GetButtonDown("TriggerAbajo"))
+                if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
                 {
                     ExitClicked();
                 }
@@ -73,7 +76,7 @@ public class MenuLogical : MonoBehaviour
             {
                 GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
                 Debug.Log("BotonBack");
-                if (Input.GetButtonDown("TriggerAbajo"))
+                if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
                 {
                     BackClicked();
                 }
@@ -82,9 +85,36 @@ public class MenuLogical : MonoBehaviour
             {
                 GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
                 Debug.Log("BotonYes");
-                if (Input.GetButtonDown("TriggerAbajo"))
+                if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
                 {
                     YesGameClick();
+                }
+            }
+            if (_hit.transform.CompareTag("ButtonFacil"))
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                Debug.Log("BotonYes");
+                if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
+                {
+                    CambiaDificultat("Facil");
+                }
+            }
+            if (_hit.transform.CompareTag("ButtonIntermedio"))
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                Debug.Log("BotonYes");
+                if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
+                {
+                    CambiaDificultat("Intermedia");
+                }
+            }
+            if (_hit.transform.CompareTag("ButtonDificil"))
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                Debug.Log("BotonYes");
+                if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
+                {
+                    CambiaDificultat("Dificil");
                 }
             }
         }
@@ -155,4 +185,19 @@ public class MenuLogical : MonoBehaviour
         exitPanel.SetActive(false);
         instrucciones.SetActive(true);
     }
+
+    public void CambiaDificultat(string dificultat)
+    {
+        textoDificultat.GetComponent<Text>().text = "La dificultad seleccionada es: " + dificultat;
+        if(dificultat == "Facil") dif = 1;
+        else if(dificultat == "Intermedia") dif = 2;
+        else dif = 3;
+        mainMenuPanel.SetActive(true);
+        creditPanel.SetActive(false);
+        aboutPanel.SetActive(false);
+        exitPanel.SetActive(false);
+        instrucciones.SetActive(true);
+        cargando.SetActive(false);
+    }
+
 }
