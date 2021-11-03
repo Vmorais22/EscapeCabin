@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     private float gravity = 10f;
     private CharacterController controller;
     public static bool menuON = false;
+    public bool daltonismo = false;
 
     //SELECCIÓN
     public float distanceOfRaycast = 10f;
@@ -29,6 +31,10 @@ public class PlayerMove : MonoBehaviour
     //TECLADO
     private TecladoMorse tecladomorse;
     public GameObject puerta1, puerta2;
+
+    //COLORES
+    private Color colorI = Color.red;
+    private Color colorC = Color.green;
 
     void Start()
     {
@@ -72,11 +78,19 @@ public class PlayerMove : MonoBehaviour
             {
                 dist = Vector3.Distance(_hit.transform.position, transform.position);
                 GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.white;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 20;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                
                 if (dist < 3f) //si el objeto esta al alcance
                 {
                     if (_hit.transform.CompareTag("Cogido")) //si el objeto es cogible
                     {
-                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.green;
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorC;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 4;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
                         Debug.Log("cogible");
                         if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) && !selected) //si apreto y no está seleccionado
                         {
@@ -92,7 +106,12 @@ public class PlayerMove : MonoBehaviour
                     }
                     else if (_hit.transform.CompareTag("LetraTeclado"))
                     {
-                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
                         if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")))
                         {
                             if (_hit.transform.name == "A" && !tecladomorse.tecla1)
@@ -126,13 +145,222 @@ public class PlayerMove : MonoBehaviour
                             }
                         }
                     }
-                    else if (_hit.transform.CompareTag("Slider"))
+                    else if (_hit.transform.CompareTag("MasLuz"))
                     {
-                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo")) MenuInGameLogic.ChangeLight(true);
+                    }
+                    else if (_hit.transform.CompareTag("MenosLuz"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo")) MenuInGameLogic.ChangeLight(false);
+                    }
+                    else if (_hit.transform.CompareTag("MasVel"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            if (speed < 6.5f)
+                            {
+                                speed += 1f;
+                                MenuInGameLogic.ChangeSpeed(true);
+                            }
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("MenosVel"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            if (speed > 3.5f)
+                            {
+                                speed -= 1f;
+                                MenuInGameLogic.ChangeSpeed(false);
+                            }
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("Daltonismo"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            daltonismo = !daltonismo;
+                            MenuInGameLogic.Daltonismo(daltonismo);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorRojoI"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorI = Color.red;
+                            MenuInGameLogic.ColorI(1);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorVerdeI"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorI = Color.green;
+                            MenuInGameLogic.ColorI(2);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorAzulI"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorI = Color.blue;
+                            MenuInGameLogic.ColorI(3);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorAmarilloI"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorI = Color.yellow;
+                            MenuInGameLogic.ColorI(4);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorLilaI"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorI = Color.magenta;
+                            MenuInGameLogic.ColorI(5);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorRojoC"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorC = Color.red;
+                            MenuInGameLogic.ColorC(1);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorVerdeC"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorC = Color.green;
+                            MenuInGameLogic.ColorC(2);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorAzulC"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorC = Color.blue;
+                            MenuInGameLogic.ColorC(3);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorAmarilloC"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorC = Color.yellow;
+                            MenuInGameLogic.ColorC(4);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("ColorLilaC"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            colorC = Color.magenta;
+                            MenuInGameLogic.ColorC(5);
+                        }
                     }
                     else if (_hit.transform.CompareTag("ColorSofa"))
                     {
-                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
                         if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))) _hit.transform.GetComponent<SofaBehaviour>().changeSofaColor();
 
                     }
@@ -172,7 +400,12 @@ public class PlayerMove : MonoBehaviour
     {
         if (_hit.transform.CompareTag("ArmAbIzDer"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenLeftRight");
@@ -182,7 +415,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmAbDerIz"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenRightLeft");
@@ -192,7 +430,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmCiDerIz"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseRightLeft");
@@ -202,7 +445,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("ArmCiIzDer"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseLeftRight");
@@ -212,7 +460,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenKitchen"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
@@ -222,7 +475,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseKitchen"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
@@ -232,7 +490,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroom"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
@@ -242,7 +505,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroom"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
@@ -252,7 +520,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroomLeft"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerLeft");
@@ -261,7 +534,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("OpenBedroomRight"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerRight");
@@ -270,7 +548,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroomLeft"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo"))
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerLeft");
@@ -279,7 +562,12 @@ public class PlayerMove : MonoBehaviour
         }
         else if (_hit.transform.CompareTag("CloseBedroomRight"))
         {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = Color.red;
+            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+            if (daltonismo)
+            {
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+            }
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerRight");

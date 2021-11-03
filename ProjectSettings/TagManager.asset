@@ -32,10 +32,26 @@ TagManager:
   - ButtonFacil
   - ButtonIntermedio
   - ButtonDificil
-  - Slider
   - ColorSofa
   - door1
   - door2
+  - MasLuz
+  - MenosLuz
+  - SliderLuz
+  - SliderVelocidad
+  - MasVel
+  - MenosVel
+  - Daltonismo
+  - ColorRojoI
+  - ColorVerdeI
+  - ColorAzulI
+  - ColorAmarilloI
+  - ColorLilaI
+  - ColorRojoC
+  - ColorVerdeC
+  - ColorAzulC
+  - ColorAmarilloC
+  - ColorLilaC
   layers:
   - Default
   - TransparentFX

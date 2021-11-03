@@ -231,7 +231,7 @@ public class GvrReticlePointer : GvrBasePointer
         return true;
     }
 
-    private void CreateReticleVertices()
+    public void CreateReticleVertices()
     {
         Mesh mesh = new Mesh();
         gameObject.AddComponent<MeshFilter>();
