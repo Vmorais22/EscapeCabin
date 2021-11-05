@@ -50,6 +50,7 @@ public class LlavePuerta : MonoBehaviour
     {
         if (collision.collider.gameObject == reactiveObject && transform.tag == "door1")
         {
+            Debug.Log("holas");
             GetComponent<Animation>().Play();
             Destroy(collision.collider.gameObject);
             GameObject.Find("XR Rig").GetComponent<PlayerMove>().selected = false;

@@ -7,6 +7,8 @@ public class ObjectInDrawer : MonoBehaviour
     // Start is called before the first frame update
     public GameObject Drawer;
     public GameObject Object;
+
+    public bool alreadyGrabbed = false;
     void Start()
     {
     }
@@ -14,7 +16,12 @@ public class ObjectInDrawer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(alreadyGrabbed);
 
-        Object.transform.position = new Vector3(Object.transform.position.x, Object.transform.position.y, Drawer.transform.position.z);
+        if(!alreadyGrabbed)
+        {
+            Object.transform.position = new Vector3(Object.transform.position.x, Object.transform.position.y, Drawer.transform.position.z);
+        }
+        
     }
 }

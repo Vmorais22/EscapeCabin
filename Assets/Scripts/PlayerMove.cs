@@ -94,10 +94,15 @@ public class PlayerMove : MonoBehaviour
                         Debug.Log("cogible");
                         if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) && !selected) //si apreto y no está seleccionado
                         {
-                            Debug.Log("lo cojo");
+
+                            if (_hit.transform.name.Contains("Cajon"))
+                            {
+                                Debug.Log(_hit.transform.name);
+                                _hit.transform.GetComponent<ObjectInDrawer>().alreadyGrabbed = true;
+                            }
                             padrecito = _hit.transform.parent.gameObject.transform;
                             _hit.transform.SetParent(myHand.transform);
-                            if(_hit.transform.name != "key") _hit.collider.isTrigger = true;
+                            if(_hit.transform.name != "Cajonkey") _hit.collider.isTrigger = true;
                             _hit.rigidbody.useGravity = false;
                             _hit.transform.localPosition = new Vector3(0f, 0f, 0f);
                             lastHit = _hit;
