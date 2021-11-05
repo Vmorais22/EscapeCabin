@@ -39,6 +39,7 @@ public class LlavePuerta : MonoBehaviour
             if (sofa1 && sofa2 && !abierto)
             {
                 GetComponent<Animation>().Play();
+                GetComponent<AudioSource>().Play();
                 abierto = true;
             }
         }
@@ -50,8 +51,8 @@ public class LlavePuerta : MonoBehaviour
     {
         if (collision.collider.gameObject == reactiveObject && transform.tag == "door1")
         {
-            Debug.Log("holas");
             GetComponent<Animation>().Play();
+            GetComponent<AudioSource>().Play();
             Destroy(collision.collider.gameObject);
             GameObject.Find("XR Rig").GetComponent<PlayerMove>().selected = false;
 

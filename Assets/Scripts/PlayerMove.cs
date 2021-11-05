@@ -55,7 +55,6 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
             {
                 rotating = false;
-                Debug.Log("lo suelto");
                 lastHit.transform.SetParent(padrecito);
                 lastHit.collider.isTrigger = false;
                 lastHit.rigidbody.useGravity = true;
@@ -91,13 +90,11 @@ public class PlayerMove : MonoBehaviour
                             GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 4;
                             GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
                         }
-                        Debug.Log("cogible");
                         if ((Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) && !selected) //si apreto y no está seleccionado
                         {
 
                             if (_hit.transform.name.Contains("Cajon"))
                             {
-                                Debug.Log(_hit.transform.name);
                                 _hit.transform.GetComponent<ObjectInDrawer>().alreadyGrabbed = true;
                             }
                             padrecito = _hit.transform.parent.gameObject.transform;
@@ -121,31 +118,26 @@ public class PlayerMove : MonoBehaviour
                         {
                             if (_hit.transform.name == "A" && !tecladomorse.tecla1)
                             {
-                                Debug.Log("Correcto");
                                 tecladomorse.Primera();
-                                Debug.Log(tecladomorse.tecla1);
                             }
                             else if (_hit.transform.name == "C" && tecladomorse.tecla1 && !tecladomorse.tecla2)
                             {
-                                Debug.Log("Correcto");
                                 tecladomorse.Segunda();
                             }
                             else if (_hit.transform.name == "A" && tecladomorse.tecla1 && tecladomorse.tecla2 && !tecladomorse.tecla3)
                             {
-                                Debug.Log("Correcto");
                                 tecladomorse.Tercera();
                             }
                             else if (_hit.transform.name == "P" && tecladomorse.tecla1 && tecladomorse.tecla2 && tecladomorse.tecla3 && !tecladomorse.tecla4)
                             {
-                                Debug.Log("Correcto");
                                 tecladomorse.Quarta();
-                                Debug.Log("CodigoCorrecto");
                                 puerta1.GetComponent<Animation>().Play();
+                                puerta1.GetComponent<AudioSource>().Play();
                                 puerta2.GetComponent<Animation>().Play();
+                                puerta2.GetComponent<AudioSource>().Play();
                                 TimerLogic.stopTimer = true;
                             }
                             else {
-                                Debug.Log("Reseteo");
                                 tecladomorse.Reseteo();
                             }
                         }
@@ -374,11 +366,6 @@ public class PlayerMove : MonoBehaviour
                         AnimationTreatment(_hit);
                     }
                 }
-                else //si no estoy a distancia
-                {
-                    if (!_hit.transform.CompareTag("Cogido") && dist < 2f) Debug.Log("no es Cogible");
-                    if (dist > 2) Debug.Log("muy lejos");
-                }
             }
 
         }
@@ -396,6 +383,11 @@ public class PlayerMove : MonoBehaviour
             Vector3 velocity = direction * speed;
             velocity = Camera.main.transform.TransformDirection(velocity);
             velocity.y -= gravity;
+            if ((velocity.x != 0 || velocity.z!= 0) && !GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Play();
+            }
+            else if ((velocity.x == 0 && velocity.z == 0) && GetComponent<AudioSource>().isPlaying) GetComponent<AudioSource>().Pause();
             controller.Move(velocity * Time.deltaTime);
         }
 
@@ -414,6 +406,7 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenLeftRight");
+                _hit.transform.GetComponent<AudioSource>().Play();
                 _hit.collider.isTrigger = true;
                 _hit.transform.gameObject.tag = "ArmCiDerIz";
             }
@@ -429,6 +422,7 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("OpenRightLeft");
+                _hit.transform.GetComponent<AudioSource>().Play();
                 _hit.collider.isTrigger = true;
                 _hit.transform.gameObject.tag = "ArmCiIzDer";
             }
@@ -444,6 +438,7 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseRightLeft");
+                _hit.transform.GetComponent<AudioSource>().Play();
                 _hit.collider.isTrigger = true;
                 _hit.transform.gameObject.tag = "ArmAbIzDer";
             }
@@ -459,6 +454,7 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1")) //si apreto y...
             {
                 _hit.transform.GetComponent<Animation>().Play("CloseLeftRight");
+                _hit.transform.GetComponent<AudioSource>().Play();
                 _hit.collider.isTrigger = true;
                 _hit.transform.gameObject.tag = "ArmAbDerIz";
             }
@@ -475,6 +471,7 @@ public class PlayerMove : MonoBehaviour
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
                 _hit.transform.GetComponent<Animation>().Play("OpenKitchenDrawer" + drawNum.ToString());
+                _hit.transform.GetComponent<AudioSource>().Play();
                 _hit.transform.gameObject.tag = "CloseKitchen";
             }
         }
@@ -490,6 +487,7 @@ public class PlayerMove : MonoBehaviour
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber - 5;
                 _hit.transform.GetComponent<Animation>().Play("CloseKitchenDrawer" + drawNum.ToString());
+                _hit.transform.GetComponent<AudioSource>().Play();
                 _hit.transform.gameObject.tag = "OpenKitchen";
             }
         }
@@ -505,6 +503,7 @@ public class PlayerMove : MonoBehaviour
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
                 _hit.transform.GetComponent<Animation>().Play("OpenBedroomDrawer" + drawNum.ToString());
+                _hit.transform.GetComponent<AudioSource>().Play();
                 _hit.transform.gameObject.tag = "CloseBedroom";
             }
         }
@@ -520,63 +519,8 @@ public class PlayerMove : MonoBehaviour
             {
                 int drawNum = _hit.transform.GetComponent<MoveableObject>().objectNumber;
                 _hit.transform.GetComponent<Animation>().Play("CloseBedroomDrawer" + drawNum.ToString());
+                _hit.transform.GetComponent<AudioSource>().Play();
                 _hit.transform.gameObject.tag = "OpenBedroom";
-            }
-        }
-        else if (_hit.transform.CompareTag("OpenBedroomLeft"))
-        {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
-            if (daltonismo)
-            {
-                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
-                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
-            }
-            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
-            {
-                _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerLeft");
-                _hit.transform.gameObject.tag = "CloseBedroomLeft";
-            }
-        }
-        else if (_hit.transform.CompareTag("OpenBedroomRight"))
-        {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
-            if (daltonismo)
-            {
-                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
-                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
-            }
-            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
-            {
-                _hit.transform.GetComponent<Animation>().Play("OpenBedSideDrawerRight");
-                _hit.transform.gameObject.tag = "CloseBedroomRight";
-            }
-        }
-        else if (_hit.transform.CompareTag("CloseBedroomLeft"))
-        {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
-            if (daltonismo)
-            {
-                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
-                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
-            }
-            if (Input.GetButtonDown("TriggerAbajo"))
-            {
-                _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerLeft");
-                _hit.transform.gameObject.tag = "OpenBedroomLeft";
-            }
-        }
-        else if (_hit.transform.CompareTag("CloseBedroomRight"))
-        {
-            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
-            if (daltonismo)
-            {
-                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
-                GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
-            }
-            if (Input.GetButtonDown("TriggerAbajo") || Input.GetButtonDown("Fire1"))
-            {
-                _hit.transform.GetComponent<Animation>().Play("CloseBedSideDrawerRight");
-                _hit.transform.gameObject.tag = "OpenBedroomRight";
             }
         }
     }

@@ -16,7 +16,6 @@ public class ObjectInDrawer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(alreadyGrabbed);
 
         if(!alreadyGrabbed)
         {
