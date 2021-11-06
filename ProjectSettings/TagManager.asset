@@ -52,6 +52,7 @@ TagManager:
   - ColorAzulC
   - ColorAmarilloC
   - ColorLilaC
+  - FinalMenu
   layers:
   - Default
   - TransparentFX

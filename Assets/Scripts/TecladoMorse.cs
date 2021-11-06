@@ -9,6 +9,9 @@ public class TecladoMorse : MonoBehaviour
     public bool tecla2 = false;
     public bool tecla3 = false;
     public bool tecla4 = false;
+    public AudioSource correcto;
+    public AudioSource incorrecto;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,25 +28,25 @@ public class TecladoMorse : MonoBehaviour
     public void Primera()
     {
         tecla1 = true;
-        //sonido bueno
+        correcto.Play();
     }
 
     public void Segunda()
     {
         tecla2 = true;
-        //sonido bueno
+        correcto.Play();
     }
 
     public void Tercera()
     {
         tecla3 = true;
-        //sonido bueno
+        correcto.Play();
     }
 
     public void Quarta()
     {
         tecla4 = true;
-        //Se abre la puerta correspondiente y sonido
+        correcto.Play();
     }
 
     public void Reseteo()
@@ -52,6 +55,6 @@ public class TecladoMorse : MonoBehaviour
         tecla2 = false;
         tecla3 = false;
         tecla4 = false;
-        //sonido malo
+        incorrecto.Play();
     }
 }

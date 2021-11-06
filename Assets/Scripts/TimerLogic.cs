@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TimerLogic : MonoBehaviour
 {
@@ -10,14 +11,16 @@ public class TimerLogic : MonoBehaviour
     private int seconds = 0;
     public bool takingAway = false;
     public static bool stopTimer = false;
+    public AudioSource go;
 
     private void Start()
     {
         int aux = MenuLogical.dif;
-        if (aux == 1) minutes = 8;
-        else if (aux == 2) minutes = 5;
-        else minutes = 3;
-        textDisplay.GetComponent<Text>().text = "0" + minutes + ":00";
+        if (aux == 1) minutes = 15;
+        else if (aux == 2) minutes = 9;
+        else minutes = 5;
+        if (minutes < 10) textDisplay.GetComponent<Text>().text = "0" + minutes + ":00";
+        else textDisplay.GetComponent<Text>().text = minutes + ":00";
     }
 
     private void Update()
@@ -29,21 +32,32 @@ public class TimerLogic : MonoBehaviour
     {
         takingAway = true;
         yield return new WaitForSeconds(1);
-        if (seconds == 0 && minutes == 0) textDisplay.GetComponent<Text>().text = "GameOver";
+        if (seconds == 0 && minutes == 0)
+        {
+            textDisplay.GetComponent<Text>().text = "GameOver";
+            PlayerMove.menuON = true;
+            go.Play();
+            yield return new WaitForSeconds(4);
+            PlayerMove.menuON = false;
+            SceneManager.LoadScene("Menu");
+        }
         else if (seconds == 0 && minutes > 0)
         {
-            textDisplay.GetComponent<Text>().text = "0" + minutes + ":00";
+            if (minutes < 10) textDisplay.GetComponent<Text>().text = "0" + minutes + ":00";
+            else textDisplay.GetComponent<Text>().text = minutes + ":00";
             --minutes;
             seconds = 59;
         }
         else if (seconds < 10)
         {
-            textDisplay.GetComponent<Text>().text = "0" + minutes + ":0" + seconds;
+            if (minutes < 10) textDisplay.GetComponent<Text>().text = "0" + minutes + ":0" + seconds;
+            else textDisplay.GetComponent<Text>().text = minutes + ":0" + seconds;
             --seconds;
         }
         else
         {
-            textDisplay.GetComponent<Text>().text = "0" + minutes + ":" + seconds;
+            if (minutes < 10) textDisplay.GetComponent<Text>().text = "0" + minutes + ":" + seconds;
+            else textDisplay.GetComponent<Text>().text = minutes + ":" + seconds;
             --seconds;
         }
         takingAway = false;

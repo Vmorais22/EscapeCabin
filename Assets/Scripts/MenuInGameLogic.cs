@@ -20,7 +20,7 @@ public class MenuInGameLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown("2")) && !menuon)// || Input.GetButtonDown("Fire2")
+        if ((Input.GetKeyDown("2") || Input.GetButtonDown("Fire2")) && !menuon)//
         {
             menuon = true;
             aux = Camera.main.transform.position;
@@ -37,7 +37,7 @@ public class MenuInGameLogic : MonoBehaviour
             TimerLogic.stopTimer = true;
             PlayerMove.menuON = true;
         }
-        else if ((Input.GetKeyDown("2")) && menuon)// || Input.GetButtonDown("Fire2")
+        else if ((Input.GetKeyDown("2") || Input.GetButtonDown("Fire2")) && menuon)//
         {
             menuon = false;
             CanvasMenu.SetActive(false);

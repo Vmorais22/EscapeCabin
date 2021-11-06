@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -348,6 +349,19 @@ public class PlayerMove : MonoBehaviour
                         {
                             colorC = Color.magenta;
                             MenuInGameLogic.ColorC(5);
+                        }
+                    }
+                    else if (_hit.transform.CompareTag("FinalMenu"))
+                    {
+                        GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().MaterialComp.color = colorI;
+                        if (daltonismo)
+                        {
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().reticleSegments = 3;
+                            GameObject.Find("GvrReticlePointer").GetComponent<GvrReticlePointer>().CreateReticleVertices();
+                        }
+                        if (Input.GetButtonDown("TriggerAbajo"))
+                        {
+                            SceneManager.LoadScene("Menu");
                         }
                     }
                     else if (_hit.transform.CompareTag("ColorSofa"))
